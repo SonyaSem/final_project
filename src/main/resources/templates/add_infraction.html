@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+
+<div th:insert="parts/header :: head"></div>
+<body>
+
+<div class="container" align="center">
+    <h3>Добавить нарушение</h3>
+    <br>
+    <form th:action ="@{/employee/{personnelNumber}/infraction (personnelNumber=${personnelNumber})}" method="post" th:object="${infraction}">
+
+        <textarea class="form-control col-sm-3 my-1 border-danger m-2" placeholder="Описание" rows="3" type="text" th:field="*{description}"></textarea>
+        <span style="color:red" th:if = "${#fields.hasErrors('description')}" th:errors = "*{description}"></span>
+        <input class="form-control col-sm-3 my-1 border-danger m-2" onfocus="(this.type='date')"  placeholder="Дата" type="text" th:field="*{date}"/>
+        <span style="color:red" th:if = "${#fields.hasErrors('date')}" th:errors = "*{date}"></span>
+
+        <textarea class="form-control col-sm-3 my-1 border-danger m-2" rows="3" placeholder="Наказание"  th:field="*{punishment}"></textarea>
+        <span style="color:red" th:if = "${#fields.hasErrors('punishment')}" th:errors = "*{punishment}"></span>
+        <br>
+        <input class="btn btn-danger" role="button" type="submit"  value="Добавить нарушение">
+    </form>
+</div>
+</body>
+</html>

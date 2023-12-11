@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<div class="container" align="center">
+    <h3>Добавить нового сотрудника</h3>
+    <br>
+    <form action ="/employee/add" th:method="post" th:object="${employee}" >
+        <input class="form-control col-sm-3 my-1 border-danger m-2" placeholder="Табельный номер" type="number"  th:field="*{personnelNumber}" />
+        <span style="color:red" th:if = "${#fields.hasErrors('personnelNumber')}" th:errors = "*{personnelNumber}"></span>
+        <span style="color:red" th:text="${err}"></span>
+       <input class="form-control col-sm-3 my-1 border-danger m-2" placeholder="Фамилия" type="text" th:field="*{lastName}"/>
+        <span style="color:red" th:if ="${#fields.hasErrors('lastName')}" th:errors = "*{lastName}"></span>
+
+      <input class="form-control col-sm-3 my-1 border-danger m-2" placeholder="Имя" type="text" th:field="*{firstName}"/>
+        <span style="color:red" th:if ="${#fields.hasErrors('firstName')}" th:errors = "*{firstName}"></span>
+
+       <input class="form-control col-sm-3 my-1 border-danger m-2 " placeholder="Отчество" type="text" th:field="*{secondName}"/>
+        <span style="color:red" th:if ="${#fields.hasErrors('secondName')}" th:errors = "*{secondName}"></span>
+
+        <input class="form-control col-sm-3 my-1 border-danger m-2" onfocus="(this.type='date')"  placeholder="Дата рождения" type="text"  th:field="*{birthDate}"/>
+        <span style="color:red" th:if ="${#fields.hasErrors('birthDate')}" th:errors = "*{birthDate}"></span>
+
+        <input class="form-control col-sm-3 my-1 border-danger m-2" placeholder="Телефон" type="text"  th:field="*{phone}"/>
+        <span style="color:red" th:if ="${#fields.hasErrors('phone')}" th:errors = "*{phone}"></span>
+
+        <input class="form-control col-sm-3 my-1 border-danger m-2" placeholder="Адрес" type="text"  th:field="*{address}"/>
+        <span style="color:red" th:if ="${#fields.hasErrors('address')}" th:errors = "*{address}"></span><br>
+
+
+        <input class="btn btn-danger" role="button" type="submit" value="Добавить сотрудника">
+       </form>
+
+   </div>
+
+
+
+   </body>
+   </html>

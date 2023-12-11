@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger" th:fragment="navbar" xmlns:th="http://www.thymeleaf.org">
+    <a class="navbar-brand" href="/">Сотрудники</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/doc">Документы</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/infraction">Нарушения</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/certification">Аттестации</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Статистика
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/statistic/infraction/employee">Нарушения сотрудников</a>
+                    <a class="dropdown-item" href="/statistic/certification/employee">Аттестация сотрудников</a>
+                    <a class="dropdown-item" href="/statistic/infraction/month">Нарушения по месяцам </a>
+                    <a class="dropdown-item" href="/statistic/certification/grade">Оценки по аттестациям</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="parts/header :: head"></div>
+<body>
+
+<div class="container" align="center">
+    <h3>Нанять сотрудника</h3>
+    <br>
+
+    <form th:action ="@{/employee/{personnelNumber}/hiring(personnelNumber=${personnelNumber})}" method="post" th:object="${document}" >
+
+        <input class="form-control col-sm-3 my-1 border-danger m-2" placeholder="Название" type="text" th:field="*{name}"/>
+        <span style="color:red" th:if = "${#fields.hasErrors('name')}" th:errors = "*{name}"></span>
+
+        <input class="form-control col-sm-3 my-1 border-danger m-2" placeholder="Номер документа" type="number" th:field="*{number}"/>
+        <span style="color:red" th:if = "${#fields.hasErrors('number')}" th:errors = "*{number}"></span>
+
+        <input class="form-control col-sm-3 my-1 border-danger m-2" onfocus="(this.type='date')" placeholder="Дата создания" type="text" th:field="*{createDate}"/>
+        <span style="color:red" th:if = "${#fields.hasErrors('createDate')}" th:errors = "*{createDate}"></span>
+        <input class="form-control col-sm-3 my-1 border-danger m-2" onfocus="(this.type='date')" placeholder="Дата исполнения" type="text" th:field="*{startDate}"/>
+        <span style="color:red" th:if = "${#fields.hasErrors('startDate')}" th:errors = "*{startDate}"></span>
+
+        <div th:object="${hiring}">
+
+            <select  class="form-select form-control col-sm-3 my-1 border-danger" th:value="${position}" th:field="*{position}">
+                <option class="form-control" th:each="item : ${positions}"
+                        th:value="${item.id}" th:text="${item.name}"></option>
+            </select>
+                <span style="color:red" th:if = "${#fields.hasErrors('position')}" th:errors = "*{position}"></span>
+
+            <select  class="form-select form-control col-sm-3 my-1 border-danger" th:value="${department}" th:field="*{department}">
+                <option class="form-control" th:each="item : ${departments}"
+                        th:value="${item.id}" th:text="${item.name}"></option>
+            </select><br>
+        </div>
+
+        <input class="btn btn-danger" role="button" type="submit" value="Добавить договор">
+    </form>
+</div>
+</body>
+</html>

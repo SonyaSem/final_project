@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+
+<div class="alert alert-danger"  role="alert" th:text="${error1}" th:if="${error1}"></div>
+<div class="alert alert-danger"  role="alert alert-primary" th:text="${error2}" th:if="${error2}"></div>
+<div class="alert alert-danger"  role="alert alert-primary" th:text="${error3}" th:if="${error3}"></div>
+
+    <div class="container"  align="center">
+
+        <div class="m-4">
+
+        <h3 th:text="|${employee.personnelNumber} - ${employee.lastName} ${employee.firstName} ${employee.secondName}|"></h3>
+        <br>
+
+        <td><a class="btn btn-danger" role="button" th:href="@{/employee/{personnelNumber}/education(personnelNumber=${employee.personnelNumber})}"> Образование</a></td>
+        <td><a class="btn btn-danger" role="button" th:href="@{/employee/{personnelNumber}/certification(personnelNumber=${employee.personnelNumber})}">Аттестация</a></td>
+        <td><a class="btn btn-danger" role="button" th:href="@{/employee/{personnelNumber}/infraction(personnelNumber=${employee.personnelNumber})}"> Нарушение</a></td>
+
+        <td><a class="btn btn-danger" role="button" th:href="@{/employee/{personnelNumber}/hiring(personnelNumber=${employee.personnelNumber})}"> Документ найма</a></td>
+        <td><a class="btn btn-danger" role="button" th:href="@{/employee/{personnelNumber}/dismissal(personnelNumber=${employee.personnelNumber})}"> Документ увольнения</a></td>
+
+            <br>
+            <br>
+
+        <form th:action="@{/employee/{personnelNumber}/transfer(personnelNumber=${employee.personnelNumber})}" method="get">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="condition1" th:checked ="checked">
+                <label class="form-check-label">Проверка даты образования/аккредитации</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" th:checked ="checked" name="condition2" >
+                <label class="form-check-label">Проверка нарушений</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input"type="checkbox" th:checked ="checked" name="condition3">
+                <label class="form-check-label">Проверка результатов аттестаций</label>
+
+            </div>
+            <input class="btn btn-danger" role="button" type="submit" value="Перевод сотрудника">
+
+        </form>
+
+        <br>
+        <h4>Образование</h4>
+
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Название</th>
+                <th>Дата получения</th>
+                <th>Университет</th>
+                <th>Специальность</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:if="${#lists.isEmpty(educations)}">
+                <td align="center" colspan="4">НЕТ ИНФОРМАЦИИ</td>
+            </tr>
+
+            <tr th:each="item : ${educations}">
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.date}"></td>
+                <td th:text="${item.university}"></td>
+                <td th:text="${item.speciality}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    <h4>Аттестация</h4>
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Название</th>
+                <th>Дата</th>
+                <th>Оценка</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:if="${#lists.isEmpty(certifications)}">
+                <td align="center" colspan="3">НЕТ ИНФОРМАЦИИ</td>
+            </tr>
+            <tr th:each="item : ${certifications}">
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.date}"></td>
+                <td th:text="${item.grade}"></td>
+
+            </tr>
+            </tbody>
+
+        </table>
+
+        <h4>Нарушения</h4>
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Описание</th>
+                <th>Дата</th>
+                <th>Наказание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(infractions)}">
+                <td align="center" colspan="3">НЕТ ИНФОРМАЦИИ</td>
+            </tr>
+            <tr th:each="item : ${infractions}">
+                <td th:text="${item.description}"></td>
+                <td th:text="${item.date}"></td>
+                <td th:text="${item.punishment}"></td>
+
+            </tr>
+            </tbody>
+
+        </table>
+
+        <h4>Документы</h4>
+
+        <table class="table table-sm table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Номер</th>
+                <th>Название</th>
+                <th>Тип документа</th>
+                <th>Дата создания</th>
+                <th>Дата начала </th>
+                <th>Должность</th>
+                <th>Отдел</th>
+                <th>Причина</th>
+                <th>Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:if="${#lists.isEmpty(documents)}">
+                <td align="center" colspan="9">НЕТ ИНФОРМАЦИИ</td>
+            </tr>
+            <tr th:each="item : ${documents}">
+                <td th:text="${item.number}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.type}"></td>
+                <td th:text="${item.createDate}"></td>
+                <td th:text="${item.startDate}"></td>
+                <td th:text="${item.position}"></td>
+                <td th:text="${item.department}"></td>
+                <td th:text="${item.reason}"></td>
+                <td th:text="${item.description}"></td>
+            </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

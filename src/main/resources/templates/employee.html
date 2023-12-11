@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<div>
+    <table class="table table-sm table-bordered table-striped table-hover p-4">
+        <thead class="thead-dark">
+        <tr>
+            <th>Табельный номер</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Телефон</th>
+            <th>Адрес</th>
+            <th>Должность</th>
+            <th>Отдел</th>
+            <th>Редактировать</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(employees)}">
+            <td align="center" colspan="10">НИЧЕГО НЕ НАЙДЕНО</td>
+        </tr>
+        <tr th:each="item : ${employees}">
+            <td th:text="${item.personnelNumber}"></td>
+            <td th:text="${item.lastName}"></td>
+            <td th:text="${item.firstName}"></td>
+            <td th:text="${item.secondName}"></td>
+            <td th:text="${item.birthDate}"></td>
+            <td th:text="${item.phone}"></td>
+            <td th:text="${item.address}"></td>
+            <td th:text="${item.position}"></td>
+            <td th:text="${item.department}"></td>
+
+            <td><a class="text-danger" th:href="@{/employee/{personnelNumber}(personnelNumber=${item.personnelNumber})}"> Подробнее</a></td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<td><a class="btn btn-danger" role="button"  th:href="@{/employee/add}"> Добавить сотрудника</a></td>
+<br>
+
+<form class="container border border-danger" action="/" method ="get">
+    <div class="row justify-content-md-center m-4">
+        <div  class="input-group mb-3">
+        <input class="form-control" type="number" placeholder="Табельный номер" name="number"/>
+        <input class="form-control"  type="text" placeholder="Фамилия" name="lastName"/>
+        <input class="form-control"  type="text" placeholder="Имя" name="firstName"/>
+        <input class="form-control"  type="text" placeholder="Отчество" name="secondName"/>
+        <input class="form-control"  type="text" placeholder="Телефон" name="phone"/>
+         <input class="btn btn-danger" role="button" type="submit" name="sort1" value ="Найти сотрудников"/>
+        </div>
+
+    <br>
+        <div class="input-group mb-3">
+                <select class="form-select form-control" aria-label="Default select example" name="position">
+                    <option class="form-control" value="">Нет должности</option>
+                    <option class="form-control" th:each="item : ${positions}"
+                            th:value="${item.name}" th:text="${item.name}"></option>
+                </select>
+            <br>
+
+            <select class="form-select form-control" aria-label="Default select example" name="department">
+                <option  class="form-control" value="">Нет отдела</option>
+                <option class="form-control" th:each="item : ${departments}"
+                        th:value="${item.name}" th:text="${item.name}"></option>
+            </select><br>
+
+            <input type="submit" class="btn btn-danger" role="button"name="sort2" value ="Найти сотрудников"/><br>
+
+        </div>
+        <input type="submit" class="btn btn-danger"  role="button" name="sort3" value ="Сотрудники на увольнение"/>
+    </div>
+
+
+</form>
+
+</body>
+</html>
