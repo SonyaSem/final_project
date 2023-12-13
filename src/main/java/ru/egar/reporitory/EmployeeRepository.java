@@ -61,7 +61,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     //Вывод сотрудников с их должностями и отделами
     @Query(value = "select e.id, e.personnel_number as personnelNumber, e.last_name as lastName, e.first_name as firstName, " +
-            "e.second_name as secondName, e.birth_date as birthDate, e.phone, e.address, p.name as position, dep.name  as department from employee e " +
+            "e.second_name as secondName, e.birth_date as birthDate, e.phone, e.address, p.name as position, dep.name  as department, p.salary from employee e " +
             "left join document d on d.id_employee = e.id and d.id in (select distinct on(doc.id_employee)doc.id " +
             "from document doc ORDER BY doc.id_employee, doc.create_date desc)" +
             "left join position p on (p.id = (select h.id_position from hiring h where h.id_document = d.id) " +
@@ -73,7 +73,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 
     @Query(value = "select e.id, e.personnel_number as personnelNumber, e.last_name as lastName, e.first_name as firstName, " +
-            "e.second_name as secondName, e.birth_date as birthDate, e.phone, e.address, p.name as position, dep.name  as department from employee e " +
+            "e.second_name as secondName, e.birth_date as birthDate, e.phone, e.address, p.name as position, dep.name  as department, p.salary from employee e " +
             "left join document d on d.id_employee = e.id and d.id in (select distinct on(doc.id_employee)doc.id " +
             "from document doc ORDER BY doc.id_employee, doc.create_date desc)" +
             "left join position p on (p.id = (select h.id_position from hiring h where h.id_document = d.id) " +
@@ -90,7 +90,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 
     @Query(value = "select e.id, e.personnel_number as personnelNumber, e.last_name as lastName, e.first_name as firstName, " +
-            "e.second_name as secondName, e.birth_date as birthDate, e.phone, e.address, p.name as position, dep.name  as department from employee e " +
+            "e.second_name as secondName, e.birth_date as birthDate, e.phone, e.address, p.name as position, dep.name  as department, p.salary from employee e " +
             "left join document d on d.id_employee = e.id and d.id in (select distinct on(doc.id_employee)doc.id " +
             "from document doc ORDER BY doc.id_employee, doc.create_date desc)" +
             "left join position p on (p.id = (select h.id_position from hiring h where h.id_document = d.id) " +
@@ -115,6 +115,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
         String getAddress();
         String getPosition();
         String getDepartment();
+        String getSalary();
     }
 
     //Проверка сотрудника на отстутсвие нарушений в течении года

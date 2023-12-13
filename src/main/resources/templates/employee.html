@@ -18,6 +18,7 @@
             <th>Адрес</th>
             <th>Должность</th>
             <th>Отдел</th>
+            <th>Зарплата</th>
             <th>Редактировать</th>
         </tr>
         </thead>
@@ -35,6 +36,7 @@
             <td th:text="${item.address}"></td>
             <td th:text="${item.position}"></td>
             <td th:text="${item.department}"></td>
+            <td th:text="${item.salary}"></td>
 
             <td><a class="text-danger" th:href="@{/employee/{personnelNumber}(personnelNumber=${item.personnelNumber})}"> Подробнее</a></td>
         </tr>
