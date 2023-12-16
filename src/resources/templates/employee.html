@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="parts/header :: head"></div>
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<div>
+    <table class="table table-sm table-bordered table-striped table-hover p-4">
+        <thead class="thead-dark">
+        <tr>
+            <th> <a th:href="@{'/page/'+ ${currentPage} + '?field=personnel_number&direction=' + ${reverse}}"> Табельный номер </a> </th>
+            <th> <a th:href="@{'/page/'+ ${currentPage} + '?field=last_name&direction=' + ${reverse}}"> Фамилия </a></th>
+            <th> <a th:href="@{'/page/'+ ${currentPage} + '?field=first_name&direction=' + ${reverse}}"> Имя </a></th>
+            <th> <a th:href="@{'/page/'+ ${currentPage} + '?field=second_name&direction=' + ${reverse}}">Отчество</a></th>
+            <th> <a th:href="@{'/page/'+ ${currentPage} + '?field=birth_date&direction=' + ${reverse}}"> Дата рождения</a></th>
+            <th> <a th:href="@{'/page/'+ ${currentPage} + '?field=phone&direction=' + ${reverse}}"> Телефон </a> </th>
+            <th> <a th:href="@{'/page/'+ ${currentPage} + '?field=address&direction=' + ${reverse}}"> Адрес</a> </th>
+            <th>Должность</th>
+            <th>Отдел</th>
+            <th>Зарплата</th>
+            <th>Подробнее</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(employees)}">
+            <td align="center" colspan="10">НИЧЕГО НЕ НАЙДЕНО</td>
+        </tr>
+        <tr th:each="item : ${employees}">
+            <td th:text="${item.personnelNumber}"></td>
+            <td th:text="${item.lastName}"></td>
+            <td th:text="${item.firstName}"></td>
+            <td th:text="${item.secondName}"></td>
+            <td th:text="${item.birthDate}"></td>
+            <td th:text="${item.phone}"></td>
+            <td th:text="${item.address}"></td>
+            <td th:text="${item.position}"></td>
+            <td th:text="${item.department}"></td>
+            <td th:text="${item.salary}"></td>
+
+               <td><a class="text-danger" th:href="@{/employee/{personnelNumber}(personnelNumber=${item.personnelNumber})}"> Подробнее</a></td>
+           </tr>
+           </tbody>
+
+       </table>
+   </div>
+
+<div style="font-size: large" class="panel-footer">
+    Всего сотрудников [[${totalElements}]] : Страница [[${currentPage}]] из [[${totalPages}]]
+    &nbsp; &nbsp; - &nbsp;
+    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+        <a th:if = "${currentPage != i}" th:href="@{'/page/'+ ${i}} + '?field=' + ${field} + '&direction=' + ${direction}">[[${i}]]</a>
+        <span th:unless="${currentPage != i}">[[${i}]]</span>
+        &nbsp; &nbsp;
+    </span>
+</div>
+
+<br>
+
+   <td><a class="btn btn-danger" role="button"  th:href="@{/employee/add}"> Добавить сотрудника</a></td>
+   <br>
+
+   <form class="container border border-danger" action="/" method ="get">
+       <div class="row justify-content-md-center m-4">
+           <div  class="input-group mb-3">
+           <input class="form-control"  type="text" placeholder="Поиск" name="string" th:value="${string}"/>
+            <input class="btn btn-danger" role="button" type="submit" name="sort1" value ="Найти сотрудников"/>
+           </div>
+
+       <br>
+           <div class="input-group mb-3">
+                   <select class="form-select form-control" aria-label="Default select example" name="position">
+                       <option class="form-control" value="">Нет должности</option>
+                       <option class="form-control" th:each="item : ${positions}"
+                               th:value="${item.name}" th:text="${item.name}"></option>
+                   </select>
+               <br>
+
+               <select class="form-select form-control" aria-label="Default select example" name="department">
+                   <option  class="form-control" value="">Нет отдела</option>
+                   <option class="form-control" th:each="item : ${departments}"
+                           th:value="${item.name}" th:text="${item.name}"></option>
+               </select><br>
+
+               <input type="submit" class="btn btn-danger" role="button"name="sort2" value ="Найти сотрудников"/><br>
+
+           </div>
+           <input type="submit" class="btn btn-danger"  role="button" name="sort3" value ="Сотрудники на увольнение"/>
+       </div>
+
+
+   </form>
+
+   </body>
+   </html>

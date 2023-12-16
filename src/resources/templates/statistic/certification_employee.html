@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<div th:insert="parts/header :: head"></div>
+
+<body>
+<header th:insert="parts/menu :: navbar"></header>
+
+<div>
+    <table class="table table-sm table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Табельный номер</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Всего аттестаций</th>
+            <th>Сдано аттестаций</th>
+            <th>Процент успеха</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${employees}">
+            <td th:text="${item.personnelNumber}"></td>
+            <td th:text="${item.lastName}"></td>
+            <td th:text="${item.firstName}"></td>
+            <td th:text="${item.secondName}"></td>
+            <td th:text="${item.total}"></td>
+            <td th:text="${item.passCount}"></td>
+            <td th:text="${item.percentage}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+    <form class="form-inline" action="/statistic/certification/employee" method ="get">
+        <div class="form-row align-items-left ml-3">
+            <input class="form-control col-sm-3 my-1 border-danger" type="number" placeholder="Год" name="year"/>
+            <input class="btn btn-danger col-sm-3 my-1"  role="button" type="submit" value ="Найти"/>
+        </div>
+
+    </form>
+
+
+</div>
+
+
+</body>
+</html>
